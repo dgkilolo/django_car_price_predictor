@@ -1,0 +1,17 @@
+{% extends 'magariPredictor/base2.html' %}
+{% block title %}Prediction{% endblock %}
+{% block content %}
+
+<div class="container">
+
+    <h1 class='text-center mt-3'>Predicted Price</h1>
+    <hr>
+
+    <h1 class='text-center text-primary'>Result <b>{{ predicted_Price }}</b>Ksh</h1>
+
+    <a class='btn btn-primary mt-4 p-1 text-center' href="{% url 'car_details' %}">Go Back</a>
+
+</div>
+
+{% include 'magariPredictor/similar_cars.html' %}
+{% endblock %}

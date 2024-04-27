@@ -1,0 +1,11 @@
+{% extends 'magariPredictor/base.html' %}
+{% block title %}Home Page{% endblock %}
+{% block content %}
+## create a home page that will have a background image called 'home-bg.jpg' a button called 'get started' and a section to write the company name.
+<div class="home-bg">
+    <div class="home-content">
+        <h1>Magari Predictor</h1>
+        <a href="{% url 'home' %}" class="btn">Get Started</a>
+    </div>
+</div>
+{% endblock %}

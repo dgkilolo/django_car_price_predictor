@@ -1,0 +1,10 @@
+{% extends 'magariPredictor/base2.html' %}
+{% block title %}Log In{% endblock %}
+{% load crispy_forms_tags %}
+{% block content %}
+<form method="post">
+    {% csrf_token %}{{form|crispy}}
+    <p>Don't have an account? Create one <a href="/sign-up" class="navbar-link">Here</a></p>
+    <button type="submit" class="btn btn-success" style="margin-top: 10px; margin-left: 35px;">Log In</button>
+</form>
+{% endblock %}

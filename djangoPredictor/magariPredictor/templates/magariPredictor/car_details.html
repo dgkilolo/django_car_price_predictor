@@ -1,0 +1,75 @@
+{% extends 'magariPredictor/base2.html' %}
+{% block title %}Car Details{% endblock %}
+{% block content  %}
+
+<div class='container mb-6 mt-2 p-4'>
+
+    <div class='row'>
+        <div class='col-md-8'>
+                        <form action="predict">
+
+                        {% csrf_token %}
+
+                        <div class="row">
+                            <div class="col-md-6">
+
+                                    <div class="mb-3">
+                                        <label for="Make" class="form-label">Make</label>
+                                        <input type="number" class="form-control" name="Make" id="Make">
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="Model" class="form-label">Model</label>
+                                        <input type="number" class="form-control" name="Model" id="Model">
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="Mileage" class="form-label">Mileage</label>
+                                        <input type="number" class="form-control" name="Mileage" id="Mileage">
+                                    </div>
+
+
+                                    <div class="mb-3">
+                                        <label for="Engine_Size" class="form-label">Engine_Size</label>
+                                        <input type="number" class="form-control" name="Engine_Size" id="Engine_Size">
+                                    </div>
+
+
+
+                                    <div class="mb-3">
+                                        <label for="Fuel_Type" class="form-label">Fuel_Type</label>
+                                        <input type="number" class="form-control" name="Fuel_Type" id="Fuel_Type">
+                                    </div>
+
+
+                                    <div class="mb-3">
+                                        <label for="Transmission" class="form-label">Transmission</label>
+                                        <input type="number" class="form-control" name="Transmission" id="Transmission">
+                                    </div>
+
+
+                                    <div class="mb-3">
+                                        <label for="Age" class="form-label">Age</label>
+                                        <input type="number" class="form-control" name="Age" id="Age">
+                                    </div>
+
+                            </div>
+
+                        </div>
+
+                    <button type="submit" value="Submit" class="btn btn-success mt-2 mb-3 shadow pt-3 pb-3 pl-1 pr-1">Car Prediction</button>
+
+
+            </form>
+
+         </div>
+
+    </div>
+
+
+</div>
+
+
+
+ 
+{% endblock content  %}
