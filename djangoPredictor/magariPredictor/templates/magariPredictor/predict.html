@@ -2,16 +2,21 @@
 {% block title %}Prediction{% endblock %}
 {% block content %}
 
-<div class="container">
+    <div class="container">
 
-    <h1 class='text-center mt-3'>Predicted Price</h1>
-    <hr>
+        <h1 class='text-center mt-3'>Predicted Price</h1>
+        <hr>
 
-    <h1 class='text-center text-primary'>Result <b>{{ predicted_Price }}</b>Ksh</h1>
+        <h1 class='text-center text-primary'>Result <b>{{ predicted_Price }}</b>Ksh</h1>
 
-    <a class='btn btn-primary mt-4 p-1 text-center' href="{% url 'car_details' %}">Go Back</a>
+        <a class='btn btn-primary mt-4 p-1 text-center' href="{% url 'car_details' %}">Go Back</a>
 
-</div>
+    </div>
 
-{% include 'magariPredictor/similar_cars.html' %}
+
+    {% if vehicle_images1 == None %}
+        <h1 class='text-center mt-3'>No Similar Cars Found</h1>
+    {% else %}
+        {% include 'magariPredictor/similar_cars.html' %}
+    {% endif %}
 {% endblock %}

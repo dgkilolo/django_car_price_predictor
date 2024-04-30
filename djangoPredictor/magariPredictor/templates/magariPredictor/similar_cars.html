@@ -1,80 +1,82 @@
     <!-- 
     - #WORK
     -->
-
+    
     <section class="section work" aria-labelledby="work-label">
     <div class="container">
 
-        <p class="section-subtitle :light" id="work-label">Our Work</p>
+            <h2 class="h2 section-title">Similar Vehicles</h2>
 
-        <h2 class="h2 section-title">Similar Vehicles</h2>
+            <ul class="has-scrollbar">
+            
+            {% if vehicle_images1 != None %}
+                <li class="scrollbar-item">
+                    <div class="work-card">
 
-        <ul class="has-scrollbar">
+                    <figure class="card-banner img-holder" style="--width: 350; --height: 406;">
+                        <img src="{{ vehicle_images1.image_url }}" width="350" height="406" loading="lazy" alt="Engine Repair"
+                        class="img-cover">
+                    </figure>
 
-        <li class="scrollbar-item">
-            <div class="work-card">
+                    <div class="card-content">
+                        <h3 class="h3 card-title">Car Name</h3>
 
-            <figure class="card-banner img-holder" style="--width: 350; --height: 406;">
-                <img src="https://d20plav1k4kerc.cloudfront.net/media/Images/WhatsApp_Image_2024-04-09_at_09.08.42.jpeg" width="350" height="406" loading="lazy" alt="Engine Repair"
-                class="img-cover">
-            </figure>
+                        <p class="card-subtitle">Price: {{ vehicle_images1.price }}Ksh</p>
+                        
+                        <a href="#" class="card-btn">
+                        <span class="material-symbols-rounded">arrow_forward</span>
+                        </a>
+                    </div>
 
-            <div class="card-content">
-                <h3 class="h3 card-title">Car Name</h3>
+                    </div>
+                </li>
+            {% endif %}
+            {% if vehicle_images2 != None %}
+            <li class="scrollbar-item">
+                <div class="work-card">
 
-                <p class="card-subtitle">Price: Ksh</p>
-                
-                <a href="#" class="card-btn">
-                <span class="material-symbols-rounded">arrow_forward</span>
-                </a>
-            </div>
+                <figure class="card-banner img-holder" style="--width: 350; --height: 406;">
+                    <img src="{{ vehicle_images2.image_url }}" width="350" height="406" loading="lazy" alt="Car Tyre change"
+                    class="img-cover">
+                </figure>
 
-            </div>
-        </li>
+                <div class="card-content">
+                    <h3 class="h3 card-title">{{ vehicle_images2.make }} {{ vehicle_images2.model }}</h3>
 
-        <li class="scrollbar-item">
-            <div class="work-card">
+                    <p class="card-subtitle">Price: {{ vehicle_images2.price }}Ksh</p>
 
-            <figure class="card-banner img-holder" style="--width: 350; --height: 406;">
-                <img src="https://www.motorhub.co.ke/assets/images/CarPhotos/Large_6ce5d4dac7bde3853dcee09c158f2e14_26012024105415.JPG" width="350" height="406" loading="lazy" alt="Car Tyre change"
-                class="img-cover">
-            </figure>
+                    <a href="#" class="card-btn">
+                    <span class="material-symbols-rounded">arrow_forward</span>
+                    </a>
+                </div>
 
-            <div class="card-content">
-                <h3 class="h3 card-title">Car Name</h3>
+                </div>
+            </li>
+            {% endif %}
+            {% if vehicle_images3 != None %}
 
-                <p class="card-subtitle">Price: Ksh</p>
+            <li class="scrollbar-item">
+                <div class="work-card">
 
-                <a href="#" class="card-btn">
-                <span class="material-symbols-rounded">arrow_forward</span>
-                </a>
-            </div>
+                <figure class="card-banner img-holder" style="--width: 350; --height: 406;">
+                    <img src="{{ vehicle_images3.image_url }}" width="350" height="406" loading="lazy" alt="Battery Adjust"
+                    class="img-cover">
+                </figure>
 
-            </div>
-        </li>
+                <div class="card-content">
+                    <h3 class="h3 card-title">Car Name</h3>
 
-        <li class="scrollbar-item">
-            <div class="work-card">
+                    <p class="card-subtitle">Price: {{ vehicle_images3.price }}Ksh</p>
 
-            <figure class="card-banner img-holder" style="--width: 350; --height: 406;">
-                <img src="https://media.autochek.africa/file/w_750,q_75/ZBQeMumG.webp" width="350" height="406" loading="lazy" alt="Battery Adjust"
-                class="img-cover">
-            </figure>
+                    <a href="#" class="card-btn">
+                    <span class="material-symbols-rounded">arrow_forward</span>
+                    </a>
+                </div>
 
-            <div class="card-content">
-                <h3 class="h3 card-title">Car Name</h3>
-
-                <p class="card-subtitle">Price: Ksh</p>
-
-                <a href="#" class="card-btn">
-                <span class="material-symbols-rounded">arrow_forward</span>
-                </a>
-            </div>
-
-            </div>
-        </li>
-
-        </ul>
+                </div>
+            </li>
+            {% endif %}
+            </ul>
 
     </div>
     </section>
