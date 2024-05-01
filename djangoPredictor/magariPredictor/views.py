@@ -88,5 +88,5 @@ def predict(request):
         vehicle_image_results3 = None
 
     
-    return render(request, 'magariPredictor/predict.html', {'predicted_Price': predictedPrice[0], 'vehicle_images1': vehicle_image_results1, 'vehicle_images2': vehicle_image_results2, 'vehicle_images3': vehicle_image_results3}) 
+    return render(request, 'magariPredictor/predict.html', {'predicted_Price': predictedPrice[0], 'vehicle_images1': vehicle_image_results1, 'vehicle_images2': vehicle_image_results2, 'vehicle_images3': vehicle_image_results3, 'car_make':make, 'car_model':vmodel}) 
 

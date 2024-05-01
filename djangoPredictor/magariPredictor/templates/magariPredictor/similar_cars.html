@@ -1,11 +1,21 @@
+{% if vehicle_images1 == None %}
+<h1 class='text-center mt-3'>No Similar Cars Found</h1>
+{% else %}
+{% include 'magariPredictor/similar_cars.html' %}
+{% endif %}
+
+
+
     <!-- 
     - #WORK
     -->
-    
+    <hr style="padding-top: 4px; width:100%; size:20; color:rgb(7, 7, 7) noshade">
     <section class="section work" aria-labelledby="work-label">
     <div class="container">
 
             <h2 class="h2 section-title">Similar Vehicles</h2>
+
+            <hr>
 
             <ul class="has-scrollbar">
             
