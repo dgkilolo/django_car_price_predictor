@@ -69,9 +69,9 @@
             <a href="#" class="navbar-link">About</a>
           </li>
 
-          <!-- <li>
-            <a href="#" class="navbar-link">Services</a>
-          </li> -->
+          <li>
+            <a href="#vehicles-for-sale" class="navbar-link">Cars for Sale</a>
+          </li>
 
           <!-- <li>
             <a href="#" class="navbar-link">Projects</a>
@@ -163,14 +163,47 @@
       </section>
 
 
-
-
-
       <!-- 
+        - #VEHICLES FOR SALE  
+      -->
+       
+
+      <section id="vehicles-for-sale" class="section work" aria-labelledby="work-label" style="background-color:rgb(19, 131, 179); height: auto; background-size: cover; padding-top: 10%;">
+          <div class="container">
+
+            <h2 class="h2 section-title">Vehicles for Sale</h2>
+            <ul class="grid-container has-scrollbar">
+              {% for car in car_details %}
+                  <li class="scrollbar-item">
+                      <div class="work-card">
+
+                          <figure class="card-banner img-holder" style="--width: 350; --height: 406;">
+                          <img src="{{ car.image_url }}" width="350" height="406" loading="lazy" alt="Vehicle Image"
+                              class="img-cover">
+                          </figure>
+
+                          <div class="card-content">
+                          <p class="card-subtitle">Price: {{ car.price }}Ksh</p>
+
+                          <h3 class="h3 card-title">{{ car.make }} {{ car.model }}</h3>
+
+                          <p class="card-subtitle">Mileage: {{ car.mileage }} Kms</p>
+                          <p class="card-subtitle">YOM: {{ car.yom }}</p>
+
+                          </div>
+                      </div>
+              {% endfor %}
+            </ul>
+          
+          </div>
+      </section>
+
+
+      <!--
         - #SERVICE
       -->
 
-      <!-- <section class="section service has-bg-image" aria-labelledby="service-label"
+      <!-- <section class="section service has-bg-image" aria-labelledby="service-label" 
         style="background-image: url('./static/images/service-bg.jpg')">
         <div class="container">
 
@@ -286,7 +319,7 @@
           </a>
 
         </div>
-      </section> -->
+      </section>
 
 
 

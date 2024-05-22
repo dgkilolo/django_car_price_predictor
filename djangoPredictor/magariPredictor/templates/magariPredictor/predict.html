@@ -67,6 +67,11 @@
             <a href="/home" class="navbar-link">Home</a>
           </li>
 
+          <li>
+            <a href="#sell-your-car" class="navbar-link">Sell Your Car</a>
+          </li>
+
+
         </ul>
       </nav>
 
@@ -107,6 +112,7 @@
 
           <p class="section-subtitle :light" id="work-label">Predicted Price:</p>
           <p class="section-subtitle :light" id="work-label" style="color:white">{{ predicted_Price }} Ksh</p>
+
         {% if vehicle_images1 != None %}
 
           <h2 class="h2 section-title">Similar Vehicles</h2>
@@ -185,6 +191,46 @@
         {% endif %}
 
 
+        </div>
+      </section>
+
+
+      <section id="sell-your-car" class="section work" aria-labelledby="work-label" style="background-color:rgb(19, 131, 179); height: auto; background-size: cover; padding-top: 10%;">
+        <hr>
+        <div class="container">
+          <p class="h2 section-title">Enter your Vehicle Detials</p>
+
+          <form method="POST" action="save_car" enctype="multipart/form-data">
+              {% csrf_token %}
+              <div class="form-group">
+                  <label for="make">Make</label>
+                  <input type="text" name="make" id="make" class="form-control" placeholder="Make" value="{{ car_make }}" required>
+                  <label for="model">Model</label>
+                  <input type="text" name="model" id="model" class="form-control" placeholder="Model" value="{{ car_model }}" required>
+                  <label for="year">Year</label>
+                  <input type="text" name="yom" id="yom" class="form-control" placeholder="Year" value="{{ car_age }}" required>
+                  <label for="mileage">Mileage</label>
+                  <input type="text" name="mileage" id="mileage" class="form-control" placeholder="Mileage" value="{{ car_mileage }}" required>
+                  <label for="engine_size">Engine Size</label>
+                  <input type="text" name="engine_size" id="engine_size" class="form-control" placeholder="Engine_Size" value="{{ car_engine_size }}">
+                  <label for="condition">Fuel Type</label>
+                  <select name="fuel_type" id="fuel_type" class="form-control" value="{{ car_fuel_type }}" required>
+                      <option value="Petrol">Petrol</option>
+                      <option value="Diesel">Diesel</option>
+                  </select>
+                  <label for="condition">Transmission</label>
+                  <select name="transmission" id="transmission" class="form-control" value="{{ car_transmission }}" required>
+                      <option value="Automatic">Automatic</option>
+                      <option value="Manual">Manual</option>
+                  </select>
+                  <label for="price">Price</label>
+                  <input type="text" name="price" id="price" class="form-control" placeholder="Price" value="{{ predicted_Price }}" required>
+                  <label for="image">Image</label>
+                  <input type="text" name="image_url" id="image_url" class="form-control" placeholder="paste image url">
+                  <button class="btn btn-primary" type="submit">Sell Car<span class="material-symbols-rounded">arrow_forward</span></button>
+
+              </div>
+         </form>
         </div>
       </section>
     </article>

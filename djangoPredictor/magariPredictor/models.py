@@ -31,10 +31,10 @@ class Vehicle_Images(models.Model):
     fuel_type = models.TextField()
     transmission = models.TextField()
     price = models.IntegerField()
-    image_url = models.CharField()
+    image_url = models.CharField(max_length=255)  # You should specify a max_length for CharField
 
-    def __str__ (self):
-        return self.image_url
+    def __str__(self):
+        return f"Make: {self.make}, Model: {self.model}, Year of Manufacture: {self.yom}, Mileage: {self.mileage}, Engine Size: {self.engine_size}, Fuel Type: {self.fuel_type}, Transmission: {self.transmission}, Price: {self.price}, Image URL: {self.image_url}"
     
     class Meta:
         db_table = 'vehicle_images'

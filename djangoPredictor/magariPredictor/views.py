@@ -10,7 +10,8 @@ import joblib
 
 # @login_required(login_url='/login')
 def home(request):
-    return render(request, 'magariPredictor/index.html')
+    car_details = Vehicle_Images.objects.all().order_by('?')[:30]
+    return render(request, 'magariPredictor/index.html', {'car_details': car_details})
 
 def sign_up(request):
     if request.method == 'POST':
@@ -88,5 +89,30 @@ def predict(request):
         vehicle_image_results3 = None
 
     
-    return render(request, 'magariPredictor/predict.html', {'predicted_Price': predictedPrice[0], 'vehicle_images1': vehicle_image_results1, 'vehicle_images2': vehicle_image_results2, 'vehicle_images3': vehicle_image_results3, 'car_make':make, 'car_model':vmodel}) 
+    return render(request, 'magariPredictor/predict.html', {'predicted_Price': predictedPrice[0], 'vehicle_images1': vehicle_image_results1, 'vehicle_images2': vehicle_image_results2, 'vehicle_images3': vehicle_image_results3,
+                                                            'car_make':make, 'car_model':vmodel, 'car_mileage':Mileage, 'car_engine_size':Engine_Size, 'car_fuel_type':Fuel_Type, 'car_transmission':Transmission, 'car_age':Age}) 
 
+
+def sell_car(request):
+    car_details = Vehicle_Images.objects.all().order_by('-id')[:30]
+    return render(request, 'magariPredictor/sell_car.html', {'car_details': car_details})
+
+def save_car(request):
+    car_details_count = Vehicle_Images.objects.all().count()
+    new_id = car_details_count + 1
+    if request.method == 'POST':
+        make = request.POST['make']
+        model = request.POST['model']
+        yom = request.POST['yom']
+        mileage = request.POST['mileage']
+        engine_size = request.POST['engine_size']
+        fuel_type = request.POST['fuel_type']
+        transmission = request.POST['transmission']
+        price = request.POST['price']
+        image_url = request.POST['image_url']
+
+        vehicle = Vehicle_Images(id=new_id, make=make, model=model, yom=yom, mileage=mileage, engine_size=engine_size, fuel_type=fuel_type, transmission=transmission, price=price, image_url=image_url)
+        vehicle.save()
+        return redirect('sell_car')
+    else:
+        return render(request, 'magariPredictor/sell_car.html')
