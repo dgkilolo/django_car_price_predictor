@@ -58,6 +58,9 @@
             <li>
                 <a href="/home" class="navbar-link">Home</a>
             </li>
+            <li>
+                <a href="/car_details" class="navbar-link">Predict Price</a>
+            </li>
 
             </ul>
         </nav>
@@ -87,7 +90,7 @@
 
         </div>
         <div class="container">
-            <h1>Sell Your Car</h1>
+            <h1>Search</h1>
             <form action="" method="GET">
                 <input type="text" name="make" placeholder="Make">
                 <input type="text" name="model" placeholder="Model">
@@ -98,72 +101,12 @@
 
     </header>
 
-    <!-- <div class="container">
-        <div class="row">
-            {% for car in cars %}
-            <div class="card">
-                <img src="{{ car.image }}" alt="{{ car.name }}">
-                <h2>{{ car.name }}</h2>
-                <p>Price: {{ car.price }}</p>
-                <a href="{% url 'car_details' car.id %}">View Details</a>
-            </div>
-            {% endfor %}
-        </div>
-    </div> -->
-
     <section class="section work" aria-labelledby="work-label" style="background-color:rgb(19, 131, 179); height: auto; background-size: cover; padding-top: 10%;">
         <div class="container">
 
 
           <h2 class="h2 section-title">Vehicles for Sale</h2>
 
-                  <!--==================== FEATURED ====================-->
-          <!-- <section class="featured section" id="featured">
-            <h2 class="section__title">Featured Luxury Cars</h2>
-            <div class="featured__container container">
-                <ul class="featured__filters">
-                    <li>
-                        <button class="featured__item active-featured" data-filter="all">
-                            <span>All</span>
-                        </button>
-                    </li>
-                    <li>
-                        <button class="featured__item" data-filter=".tesla">
-                            <img src="assets/img/logo3.png" alt="tesla_logo">
-
-                        </button>
-                    </li>
-                    <li>
-                        <button class="featured__item" data-filter=".audi">
-                            <img src="assets/img/logo2.png" alt="audi_logo">
-                        </button>
-                    </li>
-                    <li>
-                        <button class="featured__item" data-filter=".porsche">
-                            <img src="assets/img/logo1.png" alt="porsche_logo">
-                        </button>
-                    </li>
-                </ul>
-
-                <div class="featured__content grid">
-                  {% for car in car_details %}
-                    <article class="featured__card mix tesla">
-                        <div class="shape shape__smaller"></div>
-
-                        <h1 class="featured__title">{{ car.make }}</h1>
-                        <h3 class="featured__subtitle">{{ car.model }}</h3>
-                        <img src="{{ car.image_url }}" alt="" class="featured__img">
-                        <h3 class="featured__price">Ksh{{ car.price }}</h3>
-                        <button class="button featured__button">
-                            <i class="ri-shopping-bag-2-line"></i>
-                        </button>
-
-                    </article>
-                  {% endfor %}
-                </div>
-            </div>
-
-        </section> -->
 
           <ul class="grid-container has-scrollbar">
             {% for car in car_details %}

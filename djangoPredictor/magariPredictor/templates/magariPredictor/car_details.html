@@ -15,7 +15,7 @@
 
                                     <div class="mb-3">
                                         <label for="Make" class="form-label">Make</label>
-                                        <select id="Make" name="Make" class="form-control">
+                                        <select id="Make" name="Make" class="form-control" required>
                                             <option value="0">Audi</option>
                                             <option value="1">BMW</option>
                                             <option value="2">Daihatsu</option>
@@ -49,7 +49,7 @@
 
                                     <div class="mb-3">
                                         <label for="Model" class="form-label">Model</label>
-                                        <select id="Model" name="Model", class="form-control">
+                                        <select id="Model" name="Model", class="form-control" required>
                                             {% for results in showmodel %}
                                                 <option value="{{ results.id }}">{{ results }}</option>
                                             {% endfor %}
@@ -58,20 +58,20 @@
 
                                     <div class="mb-3">
                                         <label for="Mileage" class="form-label">Mileage</label>
-                                        <input type="number" class="form-control" name="Mileage" id="Mileage">
+                                        <input type="number" class="form-control" name="Mileage" id="Mileage" required>
                                     </div>
 
 
                                     <div class="mb-3">
                                         <label for="Engine_Size" class="form-label">Engine_Size</label>
-                                        <input type="number" class="form-control" name="Engine_Size" id="Engine_Size">
+                                        <input type="number" class="form-control" name="Engine_Size" id="Engine_Size" required>
                                     </div>
 
 
 
                                     <div class="mb-3">
                                         <label for="Fuel_Type" class="form-label">Fuel_Type</label>
-                                        <select id="Fuel_Type" name="Fuel_Type" class="form-control">
+                                        <select id="Fuel_Type" name="Fuel_Type" class="form-control" required>
                                             <option value="0">Petrol</option>
                                             <option value="1">Diesel</option>
                                         </select>
@@ -80,7 +80,7 @@
 
                                     <div class="mb-3">
                                         <label for="Transmission" class="form-label">Transmission</label>
-                                        <select id="Transmission" name="Transmission" class="form-control">
+                                        <select id="Transmission" name="Transmission" class="form-control" required>
                                             <option value="1">Automatic</option>
                                             <option value="0">Manual</option>
                                         </select>
@@ -89,7 +89,7 @@
 
                                     <div class="mb-3">
                                         <label for="Age" class="form-label">Age</label>
-                                        <input type="number" class="form-control" name="Age" id="Age">
+                                        <input type="number" class="form-control" name="Age" id="Age" required  >
                                     </div>
 
                             </div>
