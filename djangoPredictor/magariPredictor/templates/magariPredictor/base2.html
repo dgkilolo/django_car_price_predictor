@@ -69,9 +69,13 @@
                 <a href="/sell_car" class="navbar-link">Cars for Sale</a>
             </li>
 
-            <!-- <li>
-                <a href="#" class="navbar-link">Services</a>
-            </li> -->
+            <!-- ## check if user is a super user -->
+            {% if user.is_superuser %}
+            <li>
+                <h1><a href="/admin" class="navbar-link" style="color: hsl(1, 91%, 37%);"><u>Admin</u></a></h1>
+            </li>
+            {% endif %}
+
 
             <!-- <li>
                 <a href="#" class="navbar-link">Projects</a>

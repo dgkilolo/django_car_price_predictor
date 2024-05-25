@@ -4,6 +4,10 @@
   gap: 20px;  /* adjust as needed */
 }
 
+.form-label {
+  color: rgb(25, 218, 57);
+}
+
 :root {
 
   /**
@@ -364,6 +368,7 @@ body {
 }
 
 .navbar-link {
+  font-weight: bold;
   font-family: var(--ff-chakra-petch);
   font-size: var(--fs-5);
   text-transform: uppercase;

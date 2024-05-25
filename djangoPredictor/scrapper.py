@@ -22,9 +22,9 @@ import csv
 pages = 3
 
 # create a csv file to store the data
-csv_file = open('car_data.csv', 'a')
-csv_writer = csv.writer(csv_file)
-csv_writer.writerow(['Car Make', 'Car Model', 'Car Year', 'Car Mileage', 'Car Engine Size', 'Car Fuel Type', 'Car Transmission', 'Car Price', 'Car Image URL'])
+# csv_file = open('Combined_Data.csv', 'a')
+# csv_writer = csv.writer(csv_file)
+# csv_writer.writerow(['Make', 'Model', 'YOM', 'Mileage', 'Engine_Size', 'Fuel_Type', 'Transmission', 'Price', 'Car_Image_URL'])
 
 
 for page in range(pages):
@@ -35,7 +35,7 @@ for page in range(pages):
     soup = BeautifulSoup(response.text, 'html.parser')
 
     # open the file to store the data
-    csv_file = open('car_data.csv', 'a')
+    csv_file = open('Combined_Data.csv', 'a')
     csv_writer = csv.writer(csv_file)
 
     # div with vehicle image
@@ -87,5 +87,5 @@ for page in range(pages):
 
     csv_file.close()
 
-    print('The data has been saved in car_data.csv')
+    print('The data has been saved in Combined_Data.csv')
 # The data has been saved in car_data.csv

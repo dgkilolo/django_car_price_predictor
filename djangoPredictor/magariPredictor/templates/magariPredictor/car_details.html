@@ -8,88 +8,63 @@
         <div class='col-md-8'>
                         <form action="predict">
 
-                        {% csrf_token %}
+                        {% csrf_token %}]
 
                         <div class="row">
                             <div class="col-md-6">
 
-                                    <div class="mb-3">
-                                        <label for="Make" class="form-label">Make</label>
-                                        <select id="Make" name="Make" class="form-control" required>
-                                            <option value="0">Audi</option>
-                                            <option value="1">BMW</option>
-                                            <option value="2">Daihatsu</option>
-                                            <option value="3">FAW</option>
-                                            <option value="4">Ford</option>
-                                            <option value="5">Honda</option>
-                                            <option value="6">Hyundai</option>
-                                            <option value="7">Isuzu</option>
-                                            <option value="8">Jaguar</option>
-                                            <option value="9">Jeep</option>
-                                            <option value="10">Land Rover</option>
-                                            <option value="11">Lexus</option>
-                                            <option value="12">LEXUS</option>
-                                            <option value="13">Mazda</option>
-                                            <option value="14">Mercedes-Benz</option>
-                                            <option value="15">Mini</option>
-                                            <option value="16">Mitsubishi</option>
-                                            <option value="17">Nissan</option>
-                                            <option value="18">Peugeot</option>
-                                            <option value="19">Porsche</option>
-                                            <option value="20">Renault</option>
-                                            <option value="21">Subaru</option>
-                                            <option value="22">Suzuki</option>
-                                            <option value="23">TATA</option>
-                                            <option value="24">Toyota</option>
-                                            <option value="25">Volkswagen</option>
-                                            <option value="26">Volvo</option>
-                                        </select>
-                                        <!-- <input type="number" class="form-control" name="Make" id="Make"> -->
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <label for="Model" class="form-label">Model</label>
-                                        <select id="Model" name="Model", class="form-control" required>
-                                            {% for results in showmodel %}
-                                                <option value="{{ results.id }}">{{ results }}</option>
+                                    <div class="mb-3" style="padding: 20px; font-size: larger;">
+                                        <label for="Make" class="form-label" style="color: black;"><b>Make</b></label>
+                                        <select id="Make" name="Make" class="form-control" style="font-size: large;" required>
+                                            {% for key, value in showmake.items %}
+                                                <option value="{{ value }}">{{ key }}</option>
                                             {% endfor %}
                                         </select>
                                     </div>
 
-                                    <div class="mb-3">
-                                        <label for="Mileage" class="form-label">Mileage</label>
-                                        <input type="number" class="form-control" name="Mileage" id="Mileage" required>
+                                    <div class="mb-3" style="padding: 20px; font-size: larger;">
+                                        <label for="Model" class="form-label" style="color: black;"><b>Model</b></label>
+                                        <select id="Model" name="Model", class="form-control" style="font-size: large;" required>                                        
+                                            {% for key, value in showmodel.items %}
+                                                <option value="{{ value }}">{{ key }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+
+                                    <div class="mb-3" style="padding: 20px; font-size: larger;">
+                                        <label for="Mileage" class="form-label" style="color: black;"><b>Mileage</b></label>
+                                        <input type="number" class="form-control" name="Mileage" id="Mileage" style="font-size: large;" required>
                                     </div>
 
 
-                                    <div class="mb-3">
-                                        <label for="Engine_Size" class="form-label">Engine_Size</label>
-                                        <input type="number" class="form-control" name="Engine_Size" id="Engine_Size" required>
+                                    <div class="mb-3" style="padding: 20px; font-size: larger;">
+                                        <label for="Engine_Size" class="form-label" style="color: black;"><b>Engine_Size</b></label>
+                                        <input type="number" class="form-control" name="Engine_Size" id="Engine_Size" style="font-size: large;" required>
                                     </div>
 
 
 
-                                    <div class="mb-3">
-                                        <label for="Fuel_Type" class="form-label">Fuel_Type</label>
-                                        <select id="Fuel_Type" name="Fuel_Type" class="form-control" required>
+                                    <div class="mb-3" style="padding: 20px; font-size: larger;">
+                                        <label for="Fuel_Type" class="form-label" style="color: black;"><b>Fuel_Type</b></label>
+                                        <select id="Fuel_Type" name="Fuel_Type" class="form-control" style="font-size: large; padding: 4px;" required>
                                             <option value="0">Petrol</option>
                                             <option value="1">Diesel</option>
                                         </select>
                                     </div>
 
 
-                                    <div class="mb-3">
-                                        <label for="Transmission" class="form-label">Transmission</label>
-                                        <select id="Transmission" name="Transmission" class="form-control" required>
+                                    <div class="mb-3" style="padding: 20px; font-size: larger;">
+                                        <label for="Transmission" class="form-label" style="color: black;"><b>Transmission</b></label>
+                                        <select id="Transmission" name="Transmission" class="form-control" style="font-size: large; padding: 4px;" required>
                                             <option value="1">Automatic</option>
                                             <option value="0">Manual</option>
                                         </select>
                                     </div>
 
 
-                                    <div class="mb-3">
-                                        <label for="Age" class="form-label">Age</label>
-                                        <input type="number" class="form-control" name="Age" id="Age" required  >
+                                    <div class="mb-3" style="padding: 20px; font-size: larger;">
+                                        <label for="Age" class="form-label" style="color: black;"><b>Age</b></label>
+                                        <input type="number" class="form-control" name="Age" id="Age" style="font-size: large;" required  >
                                     </div>
 
                             </div>

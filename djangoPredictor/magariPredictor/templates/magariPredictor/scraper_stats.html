@@ -1,0 +1,131 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- 
+    - primary meta tags
+  -->
+  <title>Dinga Verse Predictor</title>
+  <meta name="title" content="Autofix - Auto Maintenance & Repair Service">
+  <meta name="description" content="This is a vehicle repair html template made by codewithsadee">
+
+  <!-- 
+    - favicon
+  -->
+  <link rel="shortcut icon" href="./favicon.svg" type="image/svg+xml">
+
+  <!-- 
+    - google font link
+  -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;600;700&family=Mulish&display=swap"
+    rel="stylesheet">
+
+  <!-- 
+    - material icon font
+  -->
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@40,600,0,0" />
+
+  <!-- 
+    - custom css link
+  -->
+  <link rel="stylesheet" href="./static/css/style.css">
+
+  <!-- 
+    - preload images
+  -->
+  <link rel="preload" as="image" href="./static/images/hero-banner.png">
+  <link rel="preload" as="image" href="./static/images/dingaVerse-bg.jpg">
+
+</head>
+
+<body>
+
+  <!-- 
+    - #HEADER
+  -->
+
+  <header class="header">
+    <div class="container">
+
+      <a href="/home" class="logo">
+        <img src="./static/images/dingaVerse-logo.png" width="128" height="63" alt="autofix home">
+      </a>
+
+      <nav class="navbar" data-navbar>
+        <ul class="navbar-list">
+
+          <li>
+            <a href="/home" class="navbar-link">Home</a>
+          </li>
+
+          <li>
+            <a href="#sell-your-car" class="navbar-link">Sell Your Car</a>
+          </li>
+
+
+        </ul>
+      </nav>
+
+      {% if user.is_authenticated %}
+      <span class="navbar-link" class="navbar-text">Welcome, {{ user.username }} | </span>
+      <li class="nav-item">
+          <form method="post" action="{% url 'car_details' %}">
+              {% csrf_token %}
+              <button class="btn btn-primary" type="submit"><span class="material-symbols-rounded">arrow_back</span>Go Back</button>
+          </form>
+      </li>
+      {% else %}
+      <a href="/login" class="btn btn-primary">
+        <span class="span">Log In</span>
+
+        <span class="material-symbols-rounded">arrow_forward</span>
+      </a>
+
+      {% endif %}
+
+      <button class="nav-toggle-btn" aria-label="toggle menu" data-nav-toggler>
+        <span class="nav-toggle-icon icon-1"></span>
+        <span class="nav-toggle-icon icon-2"></span>
+        <span class="nav-toggle-icon icon-3"></span>
+      </button>
+
+    </div>
+  </header>
+
+
+
+    <!-- 
+        - #WORK
+    -->
+    
+      <section class="section work" aria-labelledby="work-label" style="background-color:rgb(19, 131, 179); height: auto; background-size: cover; padding-top: 10%;">
+        <div class="container" style="padding: 30px;">
+
+          <p class="section-subtitle :light" id="work-label" style="font-size: x-large; color: rgb(17, 230, 99);"><b>New data</b></p>
+          <p class="section-subtitle " id="work-label" style="color:white; font-size: larger;">{{ new_rows }} entries</p>
+
+        </div>
+        <br>
+      </section>
+    </article>
+  </main>
+
+
+
+  <!-- 
+    - custom js link
+  -->
+  <script src="./static/js/script.js"></script>
+
+</body>
+
+</html>

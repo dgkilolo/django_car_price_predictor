@@ -39,3 +39,19 @@ class Vehicle_Images(models.Model):
     class Meta:
         db_table = 'vehicle_images'
 
+class Vehicle_Data(models.Model):
+    make = models.TextField()
+    model = models.TextField()
+    yom = models.IntegerField()
+    mileage = models.IntegerField()
+    engine_size = models.IntegerField()
+    fuel_type = models.TextField()
+    transmission = models.TextField()
+    price = models.IntegerField()
+
+    def __str__(self):
+        return f"Make: {self.make}, Model: {self.model}, Year of Manufacture: {self.yom}, Mileage: {self.mileage}, Engine Size: {self.engine_size}, Fuel Type: {self.fuel_type}, Transmission: {self.transmission}, Price: {self.price}"
+    
+    class Meta:
+        db_table = 'vehicle_data'
+

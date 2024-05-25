@@ -2,9 +2,23 @@ from django.shortcuts import render, redirect
 from .form import SignUpForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, logout, authenticate
-from .models import Make, Model, Vehicle_Images
+from .models import Make, Model, Vehicle_Images, Vehicle_Data
 import pandas as pd
+import requests
+from bs4 import BeautifulSoup
+import csv
+import pandas as pd
+import datetime
+import seaborn as sns
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+from sklearn.ensemble import RandomForestRegressor
+from sklearn.ensemble import GradientBoostingRegressor
+from xgboost import XGBRegressor
+from sklearn import metrics
 import joblib
+import pickle
+import plotly.express as px
 
 # Create your views here.
 
@@ -26,12 +40,39 @@ def sign_up(request):
     return render(request, 'registration/sign_up.html', {'form': form})
 
 def car_details(request):
-    result = Make.objects.all()
-    model_results = Model.objects.all()
-    return render(request, 'magariPredictor/car_details.html', {'showmodel': model_results})
+    # read the data from the csv file
+    df = pd.read_csv('vehicle_data.csv')
+
+    # sort the data in the csv file in alphabetical order
+    df = df.sort_values(by=['Make', 'Model'])
+
+    # get unique vehicle makes from the csv file
+    typesOfMake = df['Make'].unique()
+
+    # create a dictionary to map the typesOfCars to numbers
+    mapping_makes = {}
+    for car_make in typesOfMake:
+        mapping_makes[car_make] = typesOfMake.tolist().index(car_make)
+
+    # # # Encoding Vehicle Makes
+    df['Make'] = df['Make'].map(mapping_makes)
+
+    # create a dictionary to map the types of Models to numbers
+    types_of_models = df['Model'].unique()
+    mapping_models = {}
+    for car_model in types_of_models:
+        mapping_models[car_model] = types_of_models.tolist().index(car_model)
+    
+    # Encoding vehilce models:
+    df['Model'] = df['Model'].map(mapping_models)
+
+
+    # result = Make.objects.all()
+    # model_results = Model.objects.all()
+    return render(request, 'magariPredictor/car_details.html', {'showmodel': mapping_models, 'showmake': mapping_makes})
 
 def predict(request):
-    model = pd.read_pickle('car_model.pickle')
+    model = pd.read_pickle('car_model2.pickle')
 
     Make = request.GET['Make']
     Model = request.GET['Model']
@@ -53,19 +94,29 @@ def predict(request):
 
     predictedPrice = model.predict(data_new)
 
-    # use the vehicle data to query the database
-    mappingMakesOfVehicles = {'Audi':0, 'BMW':1, 'Daihatsu':2, 'FAW':3, 'Ford':4, 'Honda':5, 'Hyundai':6, 'Isuzu':7, 'Jaguar':8,
-                          'Jeep':9, 'Land Rover':10, 'Lexus':11, 'LEXUS':12, 'Mazda':13, 'Mercedes-Benz':14, 'Mini':15,
-                         'Mitsubishi':16, 'Nissan':17, 'Peugeot':18, 'Porsche':19, 'Renault':20, 'Subaru':21, 'Suzuki':22,
-                         'TATA':23, 'Toyota':24, 'Volkswagen':25, 'Volvo':26}
-    
-    make = list(mappingMakesOfVehicles.keys())[list(mappingMakesOfVehicles.values()).index(int(Make))]
+    # # read the data from the csv file
+    df = pd.read_csv('vehicle_data.csv')
 
-    mappingModelsofVehicles = {'A3':0, 'A4':1, 'A5':2, 'A6':3, 'A8':4, 'Q2':5, 'Q3':6, 'Q5':7, 'Q7':8, 'SQ5':9, '116':10, '118':11, '120':12, '218':13, '3 Series':14, '5 Series':15, '730i':16, 'M5':17, 'X1':18, 'X3':19, 'X4':20, 'X5':21, 'X6':22, 'Boon':23, 'Cast Activa':24, 'Hijet':25, 'Mira':26, 'Move':27, 'CA4256':28, 'Escape':29, 'Everest':30, 'Ranger':31, 'CR-V':32, 'Fit':33, 'Freed':34, 'Grace':35, 'Insight':36, 'N-wagon':37, 'Odyssey':38, 'Stepwagon':39, 'Stream':40, 'Vezel':41, 'Santa Fe':42, 'D-Max':43, 'XF':44, 'Compass':45, 'Grand Cherokee':46, 'Discovery 3':47, 'Discovery 4':48, 'Range Rover':49, 'Range Rover Evoque':50, 'Range Rover Sport':51, 'LX 570':52, 'NX':53, 'Rx':54, 'Atenza':55, 'Axela':56, 'Bongo':57, 'Carol':58, 'CX-3':59, 'CX-5':60, 'Demio':61, 'Flair':62, 'Premacy':63, 'A 180':64, 'C 180':65, 'C 200':66, 'E 200':67, 'E 300':68, 'E 400':69, 'E250':70, 'GL 500':71, 'GLA':72, 'GLA 180':73, 'GLA 200':74, 'GLA 250':75, 'GLC 200':76, 'GLC 250':77, 'GLC 350':78, 'GLE':79, 'GLE 250':80, 'GLE 350':81,
-               'GLE 43 AMG':82, 'M-Class':83, 'S 300':84, 'S 350':85, 'S 400':86, 'S 550':87, 'Cooper':88, 'Colt':89, 'Delica':90, 'Eclipse':91, 'EK wagon':92, 'evolution':93, 'Fuso Canter':94, 'Galant':95, 'Gk wagon':96, 'L200':97, 'Lancer':98, 'Mirage':99, 'Outlander':100, 'Pajero':101, 'ralliart':102, 'RVR':103, 'Shogun':104, 'Space Wagon':105, 'AD van':106, 'Bluebird':107, 'Caravan':108, 'Cube':109, 'Dayz':110, 'Dualis':111, 'Elgrand':112, 'Fuga':113, 'Juke':114, 'Lafesta':115, 'Latio':116, 'March':117, 'Navara':118, 'Note':119, 'NP 300':120, 'NP200':121, 'NV200':122, 'NV350':123, 'Patrol':124, 'Serena':125, 'Skyline':126, 'Sunny':127, 'Sylphy':128, 'Teana':129, 'Tiida':130, 'Vanette':131, 'Wingroad':132, 'X- trail':133, '208':134, '308':135, '405':136, 'Cayenne':137, 'Macan':138, 'Panamera':139, 'Kadjar':140, 'Kwid':141, 'Forester':142, 'G4':143, 'Impreza':144, 'Legacy':145, 'Levorg':146, 'Outback':147, 'Trezia':148, 'WRX STI':149, 'XV':150, 'Alto':151, 'Baleno':152, 'Ciaz':153, 'Escudo':154, 'Every':155, 'Grand Vitara':156, 'Jimny GL':157, 'Maruti':158, 'S Cross':159, 'Solio':160, 'Spacia':161, 'Swift':162, 'Wagon R':163, 'SUPER ACE':164, 'Allion':165, 'Alphard':166, 'Aqua':167, 'Auris':168, 'Avensis':169, 'Axio':170, 'Belta':171, 'C-HR':172, 'Caldina':173, 'Camry':174, 'Coaster':175, 'Corolla':176, 'Corolla 110':177, 'Corona':178, 'Crown':179, 'Dyna':180, 'esquire':181, 'Estima':182, 'Fielder':183, 'Fj Cruiser':184, 'Fortuner':185, 'GT86':186, 'Harrier':187, 'Hiace':188, 'Hilux':189, 'Hilux Revo':190, 'Hilux vigo':191, 'Ipsum':192, 'Isis':193, 'Ist':194, 'Kluger':195, 'Land Cruiser Prado':196, 'Land Cruiser V8':197, 'Landcruiser  V8':198, 'Landcruiser Prado':199, 'Landcruiser prado TX':200, 'Landcruiser prado TX.L':201, 'Landcruiser prado TZ':202, 'Landcruiser prado TZ.L':203, 'Landcruiser TX.G':204, 'Landcruiser TZ.G':205, 'Landcruiser VX':206, 'Landcruiser Vx V8':207, 'Landcruiser vx.I':208, 'Landcruiser ZX':209, 'Lexus 270':210, 'Lexus RX 350h':211, 'Lexus RX 450h':212, 'Lite-Ace':213, 'Mark II':214, 'Mark X':215, 'Noah':216, 'NZE':217, 'Passo':218, 'Passo Moda':219, 'PIXIS':220, 'Platz':221, 'Porte':222, 'Premio':223, 'Prius':224, 'Probox':225, 'Ractis':226, 'Raum':227, 'RAV 4':228, 'Rumion':229,
-               'Rush':230, 'sai hybrid':231, 'Sienna':232, 'Spacio':233, 'Spade':234, 'Succeed':235, 'Sueed':236, 'Surf':237, 'Town Ace':238, 'Toyoace':239, 'Vanguard':240, 'Vellfire':241, 'Verso':242, 'Vitz':243, 'Voxy':244, 'Wish':245, 'Amarok':246, 'Beetle':247, 'Golf':248, 'GTI':249, 'Jetta Gli':250, 'Passat':251, 'Polo':252, 'Tiguan':253, 'Touareg':254, 'Touran':255, 'UP':256, 'S60':257, 'V40':258, 'V70':259, 'XC40':260, 'XC60':261, 'XC70':262, 'XC90':263}
+    # # sort the data in the csv file in alphabetical order
+    df = df.sort_values(by=['Make', 'Model'])
 
-    vmodel = list(mappingModelsofVehicles.keys())[list(mappingModelsofVehicles.values()).index(int(Model))]
+    # # get unique vehicle makes from the csv file
+    typesOfMake = df['Make'].unique()
+
+    # # create a dictionary to map the typesOfCars to numbers
+    mapping_makes = {}
+    for car_make in typesOfMake:
+        mapping_makes[typesOfMake.tolist().index(car_make)] = car_make
+
+    # # create a dictionary to map the types of Models to numbers
+    types_of_models = df['Model'].unique()
+    mapping_models = {}
+    for car_model in types_of_models:
+        mapping_models[types_of_models.tolist().index(car_model)] = car_model
+        
+    make = mapping_makes[int(Make)]
+
+    vmodel = mapping_models[int(Model)]
 
     price_variation_range = 200000
 
@@ -88,13 +139,17 @@ def predict(request):
         vehicle_image_results2 = None
         vehicle_image_results3 = None
 
+    datetime.datetime.now()
+    current_year = datetime.datetime.now().year
+    yom = current_year - int(Age)
+
     
-    return render(request, 'magariPredictor/predict.html', {'predicted_Price': predictedPrice[0], 'vehicle_images1': vehicle_image_results1, 'vehicle_images2': vehicle_image_results2, 'vehicle_images3': vehicle_image_results3,
-                                                            'car_make':make, 'car_model':vmodel, 'car_mileage':Mileage, 'car_engine_size':Engine_Size, 'car_fuel_type':Fuel_Type, 'car_transmission':Transmission, 'car_age':Age}) 
+    return render(request, 'magariPredictor/predict.html', {'predicted_Price': int(predictedPrice[0]), 'vehicle_images1': vehicle_image_results1, 'vehicle_images2': vehicle_image_results2, 'vehicle_images3': vehicle_image_results3,
+                                                            'car_make':make, 'car_model':vmodel, 'car_mileage':Mileage, 'car_engine_size':Engine_Size, 'car_fuel_type':Fuel_Type, 'car_transmission':Transmission, 'car_age':yom}) 
 
 
 def sell_car(request):
-    car_details = Vehicle_Images.objects.all().order_by('-id')[:30]
+    car_details = Vehicle_Images.objects.all().order_by('-id')[:20]
     return render(request, 'magariPredictor/sell_car.html', {'car_details': car_details})
 
 def save_car(request):
@@ -116,3 +171,201 @@ def save_car(request):
         return redirect('sell_car')
     else:
         return render(request, 'magariPredictor/sell_car.html')
+
+def enter_pages(request):
+    return render(request, 'magariPredictor/scrape_pages.html')
+
+
+# scrapes data and add it to the list of vehicles for sale
+def scrape_data(request):
+    if request.method == 'POST':
+        # previous size of the database
+        previous_data_size = Vehicle_Data.objects.all().count()
+        pages = request.POST['pages']
+        pages = int(pages)
+        # get the data from the website
+        for page in range(1, pages + 1):
+            url = f'https://autochek.africa/ke/cars-for-sale?price_high=12000000&page_number={page}'
+            response = requests.get(url)
+            soup = BeautifulSoup(response.text, 'html.parser')
+
+            # div with vehicle image
+            car_image_data = soup.find_all('div', class_='MuiBox-root css-1jke4yk')
+
+            # div with vehicle detatils
+            car_data = soup.find_all('div', class_='MuiBox-root css-qym38b')
+
+            car_count = len(car_image_data)
+
+            for i in range(car_count):
+
+                car_details_count = Vehicle_Images.objects.all().count()
+                new_id = car_details_count + 1
+
+                car_data_count = Vehicle_Data.objects.all().count()
+                new_data_id = car_data_count + 1
+
+
+                car = car_data[i]
+                car_img = car_image_data[i]
+
+                car_make = car.find('h6', class_='MuiTypography-root MuiTypography-h6 css-1g399u0').text.split(' ')[1]
+                car_model = ' '.join(car.find('h6', class_='MuiTypography-root MuiTypography-h6 css-1g399u0').text.split(' ')[2:])
+                car_price = int(car.find('p', class_='MuiTypography-root MuiTypography-body1 css-1bztvjj').text.split(' ')[1].replace(',', ''))
+                car_year = car.find('h6', class_='MuiTypography-root MuiTypography-h6 css-1g399u0').text.split(' ')[0]
+                car_mileage = int(car.find_all('span', class_='MuiChip-label MuiChip-labelSmall css-1pjtbja')[1].text.split(' ')[0].replace('K', ''))*1000
+                car_fuel_type = ''
+                car_transmission = 'Automatic'
+                car_engine_size = int(car.find_all('span', class_='MuiChip-label MuiChip-labelSmall css-1pjtbja')[2].text.split(' ')[0].replace('Cc', ''))
+                car_image_url = car_img.find('span').noscript.img['src']
+                if car_make == 'Toyota' and car_model == 'Land Cruiser':
+                    car_fuel_type = 'Diesel'
+                elif car_make == 'Toyota' and car_engine_size > 2750 and car_engine_size < 2999:
+                    car_fuel_type = 'Diesel'
+                elif car_make == 'Toyota' and car_model == 'Hilux':
+                    car_fuel_type = 'Diesel'
+                elif car_make == 'Mazda' and car_model == 'CX-5' and car_engine_size > 2100:
+                    car_fuel_type = 'Diesel'
+                elif car_make == 'Mazda' and car_model == 'CX-3' and car_engine_size > 1450:
+                    car_fuel_type = 'Diesel'
+                elif car_make == 'Mazda' and car_model == 'Demio' and car_engine_size > 1450:
+                    car_fuel_type = 'Diesel'
+                elif car_make == 'Mazda' and car_engine_size > 2100:
+                    car_fuel_type = 'Diesel'
+                elif car_make == 'Isuzu':
+                    car_fuel_type = 'Diesel'
+                elif car_make == 'Nissan' and car_model == 'Navara':
+                    car_fuel_type = 'Diesel'
+                elif car_make == 'Volvo' and car_engine_size == 2000:
+                    car_fuel_type = 'Diesel'
+                else:
+                    car_fuel_type = 'Petrol'
+                
+                ## check that the data above is not already in the database
+                car_exists2 = Vehicle_Data.objects.filter(make=car_make, model=car_model, yom=car_year, mileage=car_mileage, engine_size=car_engine_size, fuel_type=car_fuel_type, transmission=car_transmission, price=car_price).exists()
+                if not car_exists2:
+                    vehicle_data = Vehicle_Data(id=new_data_id, make=car_make, model=car_model, yom=car_year, mileage=car_mileage, engine_size=car_engine_size, fuel_type=car_fuel_type, transmission=car_transmission, price=car_price)
+                    vehicle_data.save()
+                    print("the car has been saved")
+                else:
+                    pass
+                car_exists = Vehicle_Images.objects.filter(make=car_make, model=car_model, yom=car_year, mileage=car_mileage, engine_size=car_engine_size, fuel_type=car_fuel_type, transmission=car_transmission, price=car_price, image_url=car_image_url).exists()
+                if not car_exists:
+                    vehicle = Vehicle_Images(id=new_id, make=car_make, model=car_model, yom=car_year, mileage=car_mileage, engine_size=car_engine_size, fuel_type=car_fuel_type, transmission=car_transmission, price=car_price, image_url=car_image_url)
+                    vehicle.save()
+                else:
+                    pass
+
+                # car_exists2 = Vehicle_Data.objects.filter(make=car_make, model=car_model, yom=car_year, mileage=car_mileage, engine_size=car_engine_size, fuel_type=car_fuel_type, transmission=car_transmission, price=car_price).exists()
+                # if not car_exists2:
+                #     vehicle_data = Vehicle_Data(id=new_id, make=car_make, model=car_model, yom=car_year, mileage=car_mileage, engine_size=car_engine_size, fuel_type=car_fuel_type, transmission=car_transmission, price=car_price)
+                #     vehicle_data.save()
+                # else:
+                #     pass
+
+            # current size of the database
+            current_data_size = Vehicle_Data.objects.all().count()                               
+        return render(request, 'magariPredictor/scraper_stats.html', {'new_rows': (current_data_size - previous_data_size)})
+        # return redirect('train_model')
+
+
+def train_model(request):
+    # get the data from the database
+    vehicle_data = Vehicle_Data.objects.all()
+
+    # count number of rows in the data
+    data_size = Vehicle_Data.objects.all().count()
+
+    # get the current year using datetime, it should be dynamic
+    date_time = datetime.datetime.now()
+    current_year = date_time.year
+
+    # write this data to a csv file
+    with open('vehicle_data.csv', mode='w') as file:
+        writer = csv.writer(file)
+        writer.writerow(['Make', 'Model', 'Mileage', 'Engine_Size', 'Fuel_Type', 'Transmission', 'Age', 'Price'])
+        for vehicle in vehicle_data:
+            writer.writerow([vehicle.make.capitalize(), vehicle.model, vehicle.mileage, vehicle.engine_size, vehicle.fuel_type.capitalize(), vehicle.transmission.capitalize(), (current_year - vehicle.yom), vehicle.price])
+
+    # read the data from the csv file
+    df = pd.read_csv('vehicle_data.csv')
+
+    # sort the data in the csv file in alphabetical order
+    df = df.sort_values(by=['Make', 'Model'])
+
+    # # # types of fuel
+    mappingTypesOfFuel = {'Petrol':0, 'Diesel':1}
+    df['Fuel_Type'] = df['Fuel_Type'].map(mappingTypesOfFuel)
+    typesOfFuel = df['Fuel_Type'].unique()
+
+    # get unique vehicle makes from the csv file
+    typesOfMake = df['Make'].unique()
+
+    # create a dictionary to map the typesOfCars to numbers
+    mapping_makes = {}
+    for car_make in typesOfMake:
+        mapping_makes[car_make] = typesOfMake.tolist().index(car_make)
+
+    # # # Encoding Vehicle Makes
+    df['Make'] = df['Make'].map(mapping_makes)
+
+    # create a dictionary to map the types of Models to numbers
+    types_of_models = df['Model'].unique()
+    mapping_models = {}
+    for car_model in types_of_models:
+        mapping_models[car_model] = types_of_models.tolist().index(car_model)
+    
+    # Encoding vehilce models:
+    df['Model'] = df['Model'].map(mapping_models)
+
+
+    # # # encoding transmission type
+    mappingTypesOfTransmission = {'Manual':0, 'Automatic':1}
+    df['Transmission'] = df['Transmission'].map(mappingTypesOfTransmission)
+    typesOfTransmission = df['Transmission'].unique()
+
+    # Store features and target in X and y
+    x = df.drop(['Price'], axis=1)
+    y = df['Price']
+
+    # split into trainig and testing data
+    x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=10)
+
+    # model training
+
+    lr = LinearRegression()
+    lr.fit(x_train, y_train)
+
+    rf = RandomForestRegressor()
+    rf.fit(x_train, y_train)
+
+    xgb = GradientBoostingRegressor()
+    xgb.fit(x_train, y_train)
+
+    xg = XGBRegressor()
+    xg.fit(x_train, y_train)
+
+    # # prediction on the test data
+
+    y_pred1 = lr.predict(x_test)
+    y_pred2 = rf.predict(x_test)
+    y_pred3 = xgb.predict(x_test)
+    y_pred4 = xg.predict(x_test)
+
+    # # # evaluate performance of the model
+
+    score1 = metrics.r2_score(y_test, y_pred1)
+    score2 = metrics.r2_score(y_test, y_pred2)
+    score3 = metrics.r2_score(y_test, y_pred3)
+    score4 = metrics.r2_score(y_test, y_pred4)
+
+    final_data = pd.DataFrame({'Models':['LR', 'RF', 'XGB', 'XG'], 'R2_Score':[score1, score2, score3, score4]})
+
+    # # # save the best model
+    xg = XGBRegressor()
+    xg_final = xg.fit(x, y)
+
+    pd.to_pickle(xg_final, 'car_model2.pickle')
+
+    return render(request, 'magariPredictor/model_stats.html', {'xg_score': round(score4 * 100, 2), 'data_size':data_size})
+    # return redirect('home')

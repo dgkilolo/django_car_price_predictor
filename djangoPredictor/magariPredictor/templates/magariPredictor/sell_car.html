@@ -61,6 +61,15 @@
             <li>
                 <a href="/car_details" class="navbar-link">Predict Price</a>
             </li>
+            <!-- ## check if user is a super user -->
+            {% if user.is_superuser %}
+            <li>
+              <h1><a href="/admin" class="navbar-link" style="color: hsl(1, 91%, 37%);"><u>Admin</u></a></h1>
+            </li>
+            <li>
+              <h1><a href="/enter_pages" class="navbar-link" style="color: hsl(1, 91%, 37%);"><u>Scrape Data</u></a></h1>
+            </li>
+            {% endif %}
 
             </ul>
         </nav>
@@ -89,7 +98,7 @@
         </button>
 
         </div>
-        <div class="container">
+        <!-- <div class="container">
             <h1>Search</h1>
             <form action="" method="GET">
                 <input type="text" name="make" placeholder="Make">
@@ -97,7 +106,7 @@
                 <input type="text" name="year" placeholder="Year">
                 <button type="submit"><i class="fas fa-search"></i></button>
             </form>
-        </div>
+        </div> -->
 
     </header>
 

@@ -198,35 +198,42 @@
       <section id="sell-your-car" class="section work" aria-labelledby="work-label" style="background-color:rgb(19, 131, 179); height: auto; background-size: cover; padding-top: 10%;">
         <hr>
         <div class="container">
-          <p class="h2 section-title">Enter your Vehicle Detials</p>
+          <p class="h2 section-title">Enter your Vehicle Details</p>
 
           <form method="POST" action="save_car" enctype="multipart/form-data">
               {% csrf_token %}
               <div class="form-group">
-                  <label for="make">Make</label>
-                  <input type="text" name="make" id="make" class="form-control" placeholder="Make" value="{{ car_make }}" required>
-                  <label for="model">Model</label>
-                  <input type="text" name="model" id="model" class="form-control" placeholder="Model" value="{{ car_model }}" required>
-                  <label for="year">Year</label>
+                <div style="padding: 30px;">
+                  <label for="make" style="color: black;">Make</label>
+                  <input type="text" name="make" id="make" class="form-control" placeholder="Make" value="{{ car_make }}" style="font-size: medium;" required>
+                
+                  <label for="model" style="color: black;">Model</label>
+                  <input type="text" name="model" id="model" class="form-control" placeholder="Model" value="{{ car_model }}" style="font-size: medium;" required>
+                  <label for="year" style="color: black;">Year</label>
                   <input type="text" name="yom" id="yom" class="form-control" placeholder="Year" value="{{ car_age }}" required>
-                  <label for="mileage">Mileage</label>
-                  <input type="text" name="mileage" id="mileage" class="form-control" placeholder="Mileage" value="{{ car_mileage }}" required>
-                  <label for="engine_size">Engine Size</label>
-                  <input type="text" name="engine_size" id="engine_size" class="form-control" placeholder="Engine_Size" value="{{ car_engine_size }}">
-                  <label for="condition">Fuel Type</label>
-                  <select name="fuel_type" id="fuel_type" class="form-control" value="{{ car_fuel_type }}" required>
+                  <label for="mileage" style="color: black;">Mileage</label>
+                  <input type="text" name="mileage" id="mileage" class="form-control" placeholder="Mileage" value="{{ car_mileage }}" style="font-size: medium;" required>
+                </div>
+                <div style="padding: 30px;">  
+                  <label for="engine_size" style="color: black;">Engine Size</label>
+                  <input type="text" name="engine_size" id="engine_size" class="form-control" placeholder="Engine_Size" value="{{ car_engine_size }}" style="font-size: medium;" required>
+                  <label for="condition" style="color: black;">Fuel Type</label>
+                  <select name="fuel_type" id="fuel_type" class="form-control" value="{{ car_fuel_type }}" style="font-size: medium;" required>
                       <option value="Petrol">Petrol</option>
                       <option value="Diesel">Diesel</option>
                   </select>
-                  <label for="condition">Transmission</label>
-                  <select name="transmission" id="transmission" class="form-control" value="{{ car_transmission }}" required>
+                  <label for="condition" style="color: black;">Transmission</label>
+                  <select name="transmission" id="transmission" class="form-control" value="{{ car_transmission }}" style="font-size: medium;" required>
                       <option value="Automatic">Automatic</option>
                       <option value="Manual">Manual</option>
                   </select>
-                  <label for="price">Price</label>
-                  <input type="text" name="price" id="price" class="form-control" placeholder="Price" value="{{ predicted_Price }}" required>
-                  <label for="image">Image</label>
-                  <input type="text" name="image_url" id="image_url" class="form-control" placeholder="paste image url">
+                  <label for="price" style="color: black;">Price</label>
+                  <input type="text" name="price" id="price" class="form-control" placeholder="Price" value="{{ predicted_Price }}" style="font-size: medium;" required>
+                </div>
+                <div style="padding: 30px;">  
+                  <label for="image" style="color: black;">Image</label>
+                  <input type="text" name="image_url" id="image_url" class="form-control" placeholder="paste image url" style="font-size: medium;">
+                </div>
                   <button class="btn btn-primary" type="submit">Sell Car<span class="material-symbols-rounded">arrow_forward</span></button>
 
               </div>
