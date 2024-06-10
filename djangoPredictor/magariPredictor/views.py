@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from .form import SignUpForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, logout, authenticate
-from .models import Make, Model, Vehicle_Images, Vehicle_Data
+from .models import Make, Vehicle_Images, Vehicle_Data, Vehicle_Model
 import pandas as pd
 import requests
 from bs4 import BeautifulSoup
@@ -66,8 +66,6 @@ def car_details(request):
     # Encoding vehilce models:
     df['Model'] = df['Model'].map(mapping_models)
 
-
-    # result = Make.objects.all()
     # model_results = Model.objects.all()
     return render(request, 'magariPredictor/car_details.html', {'showmodel': mapping_models, 'showmake': mapping_makes})
 
@@ -256,17 +254,9 @@ def scrape_data(request):
                 else:
                     pass
 
-                # car_exists2 = Vehicle_Data.objects.filter(make=car_make, model=car_model, yom=car_year, mileage=car_mileage, engine_size=car_engine_size, fuel_type=car_fuel_type, transmission=car_transmission, price=car_price).exists()
-                # if not car_exists2:
-                #     vehicle_data = Vehicle_Data(id=new_id, make=car_make, model=car_model, yom=car_year, mileage=car_mileage, engine_size=car_engine_size, fuel_type=car_fuel_type, transmission=car_transmission, price=car_price)
-                #     vehicle_data.save()
-                # else:
-                #     pass
-
             # current size of the database
             current_data_size = Vehicle_Data.objects.all().count()                               
         return render(request, 'magariPredictor/scraper_stats.html', {'new_rows': (current_data_size - previous_data_size)})
-        # return redirect('train_model')
 
 
 def train_model(request):
@@ -369,3 +359,38 @@ def train_model(request):
 
     return render(request, 'magariPredictor/model_stats.html', {'xg_score': round(score4 * 100, 2), 'data_size':data_size})
     # return redirect('home')
+
+def get_car_models(request):
+
+    # read the data from the csv file
+    df = pd.read_csv('vehicle_data.csv')
+
+    # sort the data in the csv file in alphabetical order
+    df = df.sort_values(by=['Make', 'Model'])
+
+    # get unique vehicle makes from the csv file
+    typesOfMake = df['Make'].unique()
+
+    # create a dictionary to map the typesOfCars to numbers
+    mapping_makes = {}
+    for car_make in typesOfMake:
+        mapping_makes[car_make] = typesOfMake.tolist().index(car_make)
+
+    # create a dictionary to map the types of Models to numbers
+    types_of_models = df['Model'].unique()
+    mapping_models = {}
+    for car_model in types_of_models:
+        mapping_models [car_model] = types_of_models.tolist().index(car_model)
+    
+    filtered_models = {}
+    make = int(request.GET['make'])
+
+    for key, value in df.iterrows():
+        mapped_make = mapping_makes[value['Make']]
+        model = value['Model']
+
+        if make == mapped_make:
+            if not model in filtered_models:
+                filtered_models[model] = mapping_models[model]
+
+    return render(request, 'magariPredictor/car_model_options.html', {'filtered_models': filtered_models})

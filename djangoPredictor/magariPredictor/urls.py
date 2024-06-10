@@ -12,4 +12,5 @@ urlpatterns = [
     path('enter_pages', views.enter_pages, name='enter_pages'),
     path('scrape_data', views.scrape_data, name='scrape_data'),
     path('train_model', views.train_model, name='train_model'),
+    path('ajax/get_car_models', views.get_car_models, name='ajax_get_car_models'),
 ]

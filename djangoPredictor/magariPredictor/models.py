@@ -11,17 +11,6 @@ class Make(models.Model):
     class Meta:
         db_table = 'vehicle_make'  
 
-class Model(models.Model):
-    model = models.TextField()
-    make = models.ForeignKey(Make, on_delete=models.CASCADE)
-
-
-    def __str__ (self):
-        return self.model
-
-    class Meta:
-        db_table = 'vehicle_model'
-
 class Vehicle_Images(models.Model):
     make = models.TextField()
     model = models.TextField()
@@ -55,3 +44,12 @@ class Vehicle_Data(models.Model):
     class Meta:
         db_table = 'vehicle_data'
 
+class Vehicle_Model(models.Model):
+    model = models.TextField()
+    make_id = models.IntegerField()
+
+    def __str__(self):
+        return f"Model: {self.model}, Make ID: {self.make_id}"
+
+    class Meta:
+        db_table = 'vehicle_model'

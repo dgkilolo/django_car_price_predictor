@@ -16,6 +16,7 @@
                                     <div class="mb-3" style="padding: 20px; font-size: larger;">
                                         <label for="Make" class="form-label" style="color: black;"><b>Make</b></label>
                                         <select id="Make" name="Make" class="form-control" style="font-size: large;" required>
+                                            <option selected="selected">Select a Make</option>
                                             {% for key, value in showmake.items %}
                                                 <option value="{{ value }}">{{ key }}</option>
                                             {% endfor %}
@@ -25,8 +26,9 @@
                                     <div class="mb-3" style="padding: 20px; font-size: larger;">
                                         <label for="Model" class="form-label" style="color: black;"><b>Model</b></label>
                                         <select id="Model" name="Model", class="form-control" style="font-size: large;" required>                                        
-                                            {% for key, value in showmodel.items %}
-                                                <option value="{{ value }}">{{ key }}</option>
+                                            <option selected="selected">Select a Model</option>
+                                            {% for model in filtered_models %}
+                                                <option value="{{ model.id }}">{{ model.model }}</option>
                                             {% endfor %}
                                         </select>
                                     </div>
@@ -83,6 +85,27 @@
 
 </div>
 
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+    $("#Make").change(function () {
+      var make = $(this).val();  // get the selected Make from the HTML input
+      var url = 'ajax/get_car_models';  // get the url of the `get_car_models` view
+
+
+      $.ajax({                       // initialize an AJAX request
+        url: url,                    // set the url of the request (= localhost:8000/ajax/get_car_models)
+        data: {
+          'make': make       // add the country id to the GET parameters
+        },
+        success: function (data) {  
+
+          $("#Model").html(data);  // replace the contents of the car models with the data that came from the server
+        }
+      });
+
+    });
+  </script>
 
 
  
