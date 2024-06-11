@@ -51,11 +51,11 @@
         - #HEADER
     -->
 
-    <header class="header">
+    <header class="header" style="position: fixed; background-color: rgb(0, 128, 128);">
         <div class="container">
 
         <a href="/home" class="logo">
-            <img src="../static/images/dingaVerse-logo.png" width="128" height="63" alt="autofix home">
+            <img src="../static/images/dingaWorld2.png" width="128" height="63" alt="autofix home">
         </a>
 
         <nav class="navbar" >
@@ -65,25 +65,27 @@
                 <a href="/home" class="navbar-link">Home</a>
             </li>
 
+            {% if user.is_authenticated == False %}
+            <a href="/sign-up" class="btn btn-primary" style="background-color: rgb(54,69,79);">
+                <span class="span">Sign Up</span>
+        
+                <span class="material-symbols-rounded">arrow_forward</span>
+             </a>
+            {% endif %}
+
+            {% if user.is_authenticated %}
             <li>
                 <a href="/sell_car" class="navbar-link">Cars for Sale</a>
             </li>
+            {% endif %}
 
             <!-- ## check if user is a super user -->
             {% if user.is_superuser %}
             <li>
-                <h1><a href="/admin" class="navbar-link" style="color: hsl(1, 91%, 37%);"><u>Admin</u></a></h1>
+                <h1><a href="/admin" class="navbar-link" style="color: hsl(108, 89%, 45%);"><u>Admin</u></a></h1>
             </li>
             {% endif %}
 
-
-            <!-- <li>
-                <a href="#" class="navbar-link">Projects</a>
-            </li> -->
-
-            <!-- <li>
-                <a href="#" class="navbar-link">Contact</a>
-            </li> -->
 
             </ul>
         </nav>
@@ -93,9 +95,8 @@
         <li class="nav-item">
             <form method="post" action="{% url 'logout' %}">
                 {% csrf_token %}
-                <button class="btn btn-primary" type="submit">Log Out</button>
+                <button class="btn btn-primary" type="submit" style="background-color: rgb(54,69,79);">Log Out</button>
             </form>
-            <!-- <a  method="post" action="{% url 'logout' %}" class="nav-link" href="logout" >Logout</a> -->
         </li>
         {% else %}
         <!-- <a href="/login" class="btn btn-primary">
@@ -123,7 +124,7 @@
 
         </div>
     </header>
-    <section class="hero has-bg-image" aria-label="home" style="background-color:rgb(19, 131, 179); height: auto; background-size: cover;">
+    <section class="hero has-bg-image" aria-label="home" style="background-color:rgb(247, 247, 247); height: auto; background-size: cover;">
         <div class="container" style="margin: auto; width: 50%; padding-left: 18%; ">
 
             <div class="hero-content" style="padding-right: 50%;">

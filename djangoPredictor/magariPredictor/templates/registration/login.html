@@ -2,9 +2,9 @@
 {% block title %}Log In{% endblock %}
 {% load crispy_forms_tags %}
 {% block content %}
-<form method="post">
+<form method="post" style="font-size: larger; padding: 50px;">
     {% csrf_token %}{{form|crispy}}
-    <p>Don't have an account? Create one <a href="/sign-up" class="navbar-link">Here</a></p>
-    <button type="submit" class="btn btn-success">Log In</button>
+    <!-- <h1 style="color: white;">Don't have an account? Create one <a href="/sign-up" class="navbar-link">Here</a></h1> -->
+    <button type="submit" class="btn btn-success" style="background-color: rgb(0, 128, 128);">Log In</button>
 </form>
 {% endblock %}

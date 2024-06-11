@@ -4,11 +4,11 @@
 
 <div class='container mb-6 mt-2 p-4'>
 
-    <div class='row'>
-        <div class='col-md-8'>
-                        <form action="predict">
+    <div>
+        <div style="box-shadow: 5px 20px 20px rgb(0, 128, 128); " >
+                        <form action="predict" style="padding-bottom: 20px; padding: 50px; padding-left: 100px; padding-right: 100px;">
 
-                        {% csrf_token %}]
+                        {% csrf_token %}
 
                         <div class="row">
                             <div class="col-md-6">
@@ -34,20 +34,20 @@
                                     </div>
 
                                     <div class="mb-3" style="padding: 20px; font-size: larger;">
-                                        <label for="Mileage" class="form-label" style="color: black;"><b>Mileage</b></label>
-                                        <input type="number" class="form-control" name="Mileage" id="Mileage" style="font-size: large;" required>
+                                        <label for="Mileage" class="form-label" style="color: black;"><b>Mileage (Kms)</b></label>
+                                        <input type="number" class="form-control" name="Mileage" id="Mileage" style="font-size: large;" placeholder="e.g 50000" required>
                                     </div>
 
 
                                     <div class="mb-3" style="padding: 20px; font-size: larger;">
-                                        <label for="Engine_Size" class="form-label" style="color: black;"><b>Engine_Size</b></label>
-                                        <input type="number" class="form-control" name="Engine_Size" id="Engine_Size" style="font-size: large;" required>
+                                        <label for="Engine_Size" class="form-label" style="color: black;"><b>Engine Size (cc)</b></label>
+                                        <input type="number" class="form-control" name="Engine_Size" id="Engine_Size" style="font-size: large;" placeholder=" e.g 1500" required>
                                     </div>
 
 
 
                                     <div class="mb-3" style="padding: 20px; font-size: larger;">
-                                        <label for="Fuel_Type" class="form-label" style="color: black;"><b>Fuel_Type</b></label>
+                                        <label for="Fuel_Type" class="form-label" style="color: black;"><b>Fuel Type</b></label>
                                         <select id="Fuel_Type" name="Fuel_Type" class="form-control" style="font-size: large; padding: 4px;" required>
                                             <option value="0">Petrol</option>
                                             <option value="1">Diesel</option>
@@ -65,15 +65,15 @@
 
 
                                     <div class="mb-3" style="padding: 20px; font-size: larger;">
-                                        <label for="Age" class="form-label" style="color: black;"><b>Age</b></label>
-                                        <input type="number" class="form-control" name="Age" id="Age" style="font-size: large;" required  >
+                                        <label for="Age" class="form-label" style="color: black;"><b>YOM</b></label>
+                                        <input type="number" class="form-control" name="Age" id="Age" style="font-size: large;" placeholder="Year of Manufacture" required  >
                                     </div>
 
                             </div>
 
                         </div>
 
-                    <button type="submit" value="Submit" class="btn btn-success mt-2 mb-3 shadow pt-3 pb-3 pl-1 pr-1">Car Prediction</button>
+                    <button type="submit" value="Submit" class="btn btn-success mt-2 mb-3 shadow pt-3 pb-3 pl-1 pr-1" style="background-color: rgb(0, 128, 128);">Car Prediction</button>
 
 
             </form>

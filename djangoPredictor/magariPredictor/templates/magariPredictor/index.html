@@ -51,11 +51,11 @@
     - #HEADER
   -->
 
-  <header class="header">
+  <header class="header" style="position: fixed; background-color: rgb(0, 128, 128);">
     <div class="container">
 
       <a href="#" class="logo">
-        <img src="./static/images/dingaVerse-logo.png" width="128" height="63" alt="autofix home">
+        <img src="./static/images/dingaWorld2.png" width="128" height="63" alt="autofix home">
       </a>
 
       <nav class="navbar" data-navbar>
@@ -90,12 +90,12 @@
       <li class="nav-item">
           <form method="post" action="{% url 'logout' %}">
               {% csrf_token %}
-              <button class="btn btn-primary" type="submit">Log Out</button>
+              <button class="btn btn-primary" type="submit" style="background-color: rgb(54,69,79);">Log Out</button>
           </form>
           <!-- <a  method="post" action="{% url 'logout' %}" class="nav-link" href="logout" >Logout</a> -->
       </li>
       {% else %}
-      <a href="/login" class="btn btn-primary">
+      <a href="/login" class="btn btn-primary" style="background-color: rgb(54,69,79);">
         <span class="span">Log In</span>
 
         <span class="material-symbols-rounded">arrow_forward</span>
@@ -123,21 +123,21 @@
         - #HERO
       -->
 
-      <section class="hero has-bg-image" aria-label="home" style="background-color:rgb(19, 131, 179); height: auto; background-size: cover;">
+      <section class="hero has-bg-image" aria-label="home" style="background-color:rgb(247, 247, 247); height: auto; background-size: cover;">
         <div class="container">
 
           <div class="hero-content">
 
-            <p class="section-subtitle :dark">Your Price Predictor Partner!</p>
+            <p class="section-subtitle :dark" style="color: rgb(54, 69, 79); font-size: x-large;" >Your Price Predictor Partner!</p>
 
-            <h1 class="h1 section-title" style="color: hsl(1, 91%, 37%)">Dinga Verse</h1>
+            <h1 class="h1 section-title" style="color: rgb(0, 128, 128)">Dinga World</h1>
 
-            <p class="section-text">
+            <p class="section-text" style="color: rgb(54, 69, 79);">
               Navigate the Kenyan Car Market with Confidence
             </p>
             
             {% if user.is_authenticated %}
-            <a href="/car_details" class="btn">
+            <a href="/car_details" class="btn" style="background-color: rgb(0, 128, 128);" >
               <span class="move-anim" class="span">Get Started</span>
 
               <span class="material-symbols-rounded">arrow_forward</span>
@@ -146,10 +146,10 @@
 
           </div>
 
-          <!-- <figure class="hero-banner" style="--width: 1000; --height: 650;">
-            <img src="./static/images/hero-banner.png" width="1228" height="789" alt="red motor vehicle"
+          <figure class="hero-banner" style="--width: 300; --height: 450;">
+            <img src="./static/images/toyota_land_cruiser_prado.jpg"  alt="red motor vehicle"
               class="move-anim">
-          </figure> -->
+          </figure>
 
         </div>
       </section>
@@ -160,13 +160,13 @@
       -->
        
 
-      <section id="vehicles-for-sale" class="section work" aria-labelledby="work-label" style="background-color:rgb(19, 131, 179); height: auto; background-size: cover; padding-top: 10%;">
+      <section id="vehicles-for-sale" class="section work" aria-labelledby="work-label" style="background-color:rgb(247, 247, 247); height: auto; background-size: cover; padding-top: 10%;">
           <div class="container">
 
-            <h2 class="h2 section-title">Vehicles for Sale</h2>
+            <h2 class="h2 section-title" style="color: rgb(0, 128, 128)">Vehicles for Sale</h2>
             <ul class="grid-container has-scrollbar">
               {% for car in car_details %}
-                  <li class="scrollbar-item">
+                  <li class="scrollbar-item" style="box-shadow: 5px 5px 5px rgb(0, 128, 128);">
                       <div class="work-card">
 
                           <figure class="card-banner img-holder" style="--width: 350; --height: 406;">

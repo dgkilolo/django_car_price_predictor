@@ -53,11 +53,11 @@
     - #HEADER
   -->
 
-  <header class="header">
+  <header class="header" style="position: fixed; background-color: rgb(0, 128, 128);">
     <div class="container">
 
       <a href="/home" class="logo">
-        <img src="./static/images/dingaVerse-logo.png" width="128" height="63" alt="autofix home">
+        <img src="./static/images/dingaWorld2.png" width="128" height="63" alt="autofix home">
       </a>
 
       <nav class="navbar" data-navbar>
@@ -76,13 +76,13 @@
       </nav>
 
       {% if user.is_authenticated %}
-      <span class="navbar-link" class="navbar-text">Welcome, {{ user.username }} | </span>
-      <li class="nav-item">
-          <form method="post" action="{% url 'car_details' %}">
-              {% csrf_token %}
-              <button class="btn btn-primary" type="submit"><span class="material-symbols-rounded">arrow_back</span>Go Back</button>
-          </form>
+      <li>
+        <h1><a href="/enter_pages" class="navbar-link" style="color: hsl(108, 89%, 45%);"><u>Scrape Data</u></a></h1>
       </li>
+      <li>
+        <h1><a href="/train_model" class="navbar-link" style="color: hsl(108, 89%, 45%);"><u>Train Model</u></a></h1>
+      </li>
+      <span class="navbar-link" class="navbar-text">Welcome, {{ user.username }} | </span>
       {% else %}
       <a href="/login" class="btn btn-primary">
         <span class="span">Log In</span>
@@ -100,25 +100,19 @@
 
     </div>
   </header>
-
-
-
-    <!-- 
-        - #WORK
-    -->
     
-      <section class="section work" aria-labelledby="work-label" style="background-color:rgb(19, 131, 179); height: auto; background-size: cover; padding-top: 10%;">
-        <div class="container" style="padding: 30px;">
+      <section class="section work" aria-labelledby="work-label" style="background-color:rgb(247, 247, 247); height: auto; background-size: cover; padding-top: 10%;">
+        <div class="container" style="padding: 30px; box-shadow: 5px 5px 5px rgb(0, 128, 128) inset;">
 
           <p class="section-subtitle :light" id="work-label" style="font-size: x-large; color: rgb(17, 230, 99);"><b>Model Accuracy</b></p>
-          <p class="section-subtitle " id="work-label" style="color:white; font-size: larger;">{{ xg_score }} %</p>
+          <p class="section-subtitle " id="work-label" style="color:black; font-size: larger;">{{ xg_score }} %</p>
 
         </div>
         <br>
-        <div class="container">
+        <div class="container" style="box-shadow: 5px 5px 5px rgb(0, 128, 128);">
 
           <p class="section-subtitle :light" id="work-label" style="font-size: x-large; color: rgb(17, 230, 99);"><b>Data Size</b></p>
-          <p class="section-subtitle " id="work-label" style="color:white; font-size: larger;">{{ data_size }} rows</p>
+          <p class="section-subtitle " id="work-label" style="color:black; font-size: larger;">{{ data_size }} rows</p>
 
         </div>    
       </section>

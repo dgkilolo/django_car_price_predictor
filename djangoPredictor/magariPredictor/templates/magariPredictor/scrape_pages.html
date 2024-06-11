@@ -10,12 +10,12 @@
 
                 {% csrf_token %}
 
-                <div class="row">
-                    <div class="col-md-6">
+                <div>
+                    <div class="col-md-6" style="box-shadow: 2px 2px 40px rgb(0, 128, 128) inset;; padding: 80px;">
 
                             <div class="mb-3" style="padding: 20px; font-size: larger;">
                                 <label for="pages" class="form-label" style="color: black;"><b>Pages</b></label>
-                                <input type="number" class="form-control" name="pages" id="pages" style="font-size: large;" placeholder="Enter number of pages to be scrapped.. less than 5" required  >
+                                <input type="number" class="form-control" name="pages" id="pages" style="font-size: larger;" placeholder="number of pages e.g 5" required  >
                             </div>
 
                             <div class="mb-3" style="padding: 20px; font-size: larger;">

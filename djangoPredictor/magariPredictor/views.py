@@ -19,6 +19,7 @@ from sklearn import metrics
 import joblib
 import pickle
 import plotly.express as px
+import re
 
 # Create your views here.
 
@@ -26,6 +27,7 @@ import plotly.express as px
 def home(request):
     car_details = Vehicle_Images.objects.all().order_by('?')[:30]
     return render(request, 'magariPredictor/index.html', {'car_details': car_details})
+
 
 def sign_up(request):
     if request.method == 'POST':
@@ -39,6 +41,8 @@ def sign_up(request):
 
     return render(request, 'registration/sign_up.html', {'form': form})
 
+
+@login_required(login_url='/login')
 def car_details(request):
     # read the data from the csv file
     df = pd.read_csv('vehicle_data.csv')
@@ -69,6 +73,8 @@ def car_details(request):
     # model_results = Model.objects.all()
     return render(request, 'magariPredictor/car_details.html', {'showmodel': mapping_models, 'showmake': mapping_makes})
 
+
+@login_required(login_url='/login')
 def predict(request):
     model = pd.read_pickle('car_model2.pickle')
 
@@ -87,7 +93,7 @@ def predict(request):
         'Engine_Size': [int(Engine_Size)],
         'Fuel_Type': [int(Fuel_Type)],
         'Transmission': [int(Transmission)],
-        'Age': [int(Age)]
+        'Age': [2024 - int(Age)]
     })
 
     predictedPrice = model.predict(data_new)
@@ -141,15 +147,19 @@ def predict(request):
     current_year = datetime.datetime.now().year
     yom = current_year - int(Age)
 
+    string_predicted_price = str(int(predictedPrice[0]))
+    string_predicted_price = re.sub(r'(\d{3})(?=\d)', r'\1,', str(string_predicted_price)[::-1])[::-1]
     
-    return render(request, 'magariPredictor/predict.html', {'predicted_Price': int(predictedPrice[0]), 'vehicle_images1': vehicle_image_results1, 'vehicle_images2': vehicle_image_results2, 'vehicle_images3': vehicle_image_results3,
-                                                            'car_make':make, 'car_model':vmodel, 'car_mileage':Mileage, 'car_engine_size':Engine_Size, 'car_fuel_type':Fuel_Type, 'car_transmission':Transmission, 'car_age':yom}) 
+    return render(request, 'magariPredictor/predict.html', {'predicted_Price': int(predictedPrice[0]), 'string_predicted_price': string_predicted_price, 'vehicle_images1': vehicle_image_results1, 'vehicle_images2': vehicle_image_results2, 'vehicle_images3': vehicle_image_results3,
+                                                            'car_make':make, 'car_model':vmodel, 'car_mileage':Mileage, 'car_engine_size':Engine_Size, 'car_fuel_type':Fuel_Type, 'car_transmission':Transmission, 'car_age':2024-yom}) 
 
-
+@login_required(login_url='/login')
 def sell_car(request):
     car_details = Vehicle_Images.objects.all().order_by('-id')[:20]
     return render(request, 'magariPredictor/sell_car.html', {'car_details': car_details})
 
+
+@login_required(login_url='/login')
 def save_car(request):
     car_details_count = Vehicle_Images.objects.all().count()
     new_id = car_details_count + 1
@@ -170,11 +180,13 @@ def save_car(request):
     else:
         return render(request, 'magariPredictor/sell_car.html')
 
+
+@login_required(login_url='/login')
 def enter_pages(request):
     return render(request, 'magariPredictor/scrape_pages.html')
 
 
-# scrapes data and add it to the list of vehicles for sale
+@login_required(login_url='/login')
 def scrape_data(request):
     if request.method == 'POST':
         # previous size of the database
@@ -259,6 +271,7 @@ def scrape_data(request):
         return render(request, 'magariPredictor/scraper_stats.html', {'new_rows': (current_data_size - previous_data_size)})
 
 
+@login_required(login_url='/login')
 def train_model(request):
     # get the data from the database
     vehicle_data = Vehicle_Data.objects.all()
@@ -360,6 +373,8 @@ def train_model(request):
     return render(request, 'magariPredictor/model_stats.html', {'xg_score': round(score4 * 100, 2), 'data_size':data_size})
     # return redirect('home')
 
+
+@login_required(login_url='/login')
 def get_car_models(request):
 
     # read the data from the csv file

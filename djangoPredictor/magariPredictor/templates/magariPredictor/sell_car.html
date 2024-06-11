@@ -35,21 +35,20 @@
     - custom css link
   -->
   <link rel="stylesheet" href="./static/css/style.css">
-  <link rel="stylesheet" href="./static/css/style2.css">
 
   <!-- 
     - preload images
   -->
   <link rel="preload" as="image" href="./static/images/hero-banner.png">
-  <link rel="preload" as="image" href="./static/images/dingaVerse-bg.jpg">
+  <link rel="preload" as="image" href="./static/images/dingaWorld.jpg">
 
 </head>
 <body>
-    <header class="header">
+    <header class="header" style="position: fixed; background-color: rgb(0, 128, 128);">
         <div class="container">
 
         <a href="/home" class="logo">
-            <img src="./static/images/dingaVerse-logo.png" width="128" height="63" alt="autofix home">
+            <img src="./static/images/dingaWorld2.png" width="128" height="63" alt="dingaWorld">
         </a>
 
         <nav class="navbar" data-navbar>
@@ -76,12 +75,6 @@
 
         {% if user.is_authenticated %}
         <span class="navbar-link" class="navbar-text">Welcome, {{ user.username }} | </span>
-        <li class="nav-item">
-            <form method="post" action="{% url 'car_details' %}">
-                {% csrf_token %}
-                <button class="btn btn-primary" type="submit"><span class="material-symbols-rounded">arrow_back</span>Go Back</button>
-            </form>
-        </li>
         {% else %}
         <a href="/login" class="btn btn-primary">
             <span class="span">Log In</span>
@@ -98,28 +91,19 @@
         </button>
 
         </div>
-        <!-- <div class="container">
-            <h1>Search</h1>
-            <form action="" method="GET">
-                <input type="text" name="make" placeholder="Make">
-                <input type="text" name="model" placeholder="Model">
-                <input type="text" name="year" placeholder="Year">
-                <button type="submit"><i class="fas fa-search"></i></button>
-            </form>
-        </div> -->
 
     </header>
 
-    <section class="section work" aria-labelledby="work-label" style="background-color:rgb(19, 131, 179); height: auto; background-size: cover; padding-top: 10%;">
+    <section class="section work" aria-labelledby="work-label" style="background-color:rgb(247, 247, 247); height: auto; background-size: cover; padding-top: 10%;">
         <div class="container">
 
 
-          <h2 class="h2 section-title">Vehicles for Sale</h2>
+          <h2 class="h2 section-title" style="color: rgb(0, 128, 128)">Vehicles for Sale</h2>
 
 
           <ul class="grid-container has-scrollbar">
             {% for car in car_details %}
-                <li class="scrollbar-item">
+                <li class="scrollbar-item" style="box-shadow: 5px 5px 5px rgb(0, 128, 128);">
                     <div class="work-card">
 
                         <figure class="card-banner img-holder" style="--width: 350; --height: 406;">
